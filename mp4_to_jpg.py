@@ -22,7 +22,10 @@ while(True):
     while(True):
         correct = input('You entered ' + inputDir + ' is that correct? [Y/n]: ')
         if correct == 'y' or correct == 'Y' or correct == 'n' or correct == 'N': break
-    if correct == 'y' or correct == 'Y': break
+    if correct == 'y' or correct == 'Y': 
+        if os.path.exists(inputDir): break
+        else:
+            input('Error: The directory ' + inputDir + ' does not exist on this system. Press ENTER to continue.')
 
 while(True):
     outputDir = input('Define the full output directory: ')
