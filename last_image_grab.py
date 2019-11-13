@@ -1,8 +1,6 @@
 import cv2
 import os
 
-FRAME_NUMBER = 1500
-
 while(True):
     inputDir = input('Define the full input directory: ')
     if not inputDir.endswith('/'):
@@ -25,13 +23,10 @@ except OSError:
 for filename in os.listdir(inputDir):
     if filename.endswith(".MP4"):
         cap = cv2.VideoCapture(inputDir + filename)
-        f = FRAME_NUMBER
+        f = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        f = f - 2
         cap.set(1, f)
-        res, frame = cap.read()
-        while not res:
-            f -= 50
-            cap.set(1, f)
-            res, fram = cap.read()
+        res, frame = cap.read()    
         picture_name = newDir + filename.replace('.MP4', '.jpg')
         print("Extracting frame from ", filename)
         cv2.imwrite(picture_name, frame)
